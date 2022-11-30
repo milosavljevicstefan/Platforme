@@ -1,0 +1,21 @@
+﻿<Window x:Class="ProjekatPlatforme.Services.AllProfessorsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjekatPlatforme.Services"
+        mc:Ignorable="d"
+        Title="AllProfessorsWindow" Height="450" Width="656" Background="#FF75A99F">
+    <Grid Margin="0,0,65,0">
+
+        <Button x:Name="dodaj_button" Content="Dodaj novog" HorizontalAlignment="Left" Margin="457,53,0,0" VerticalAlignment="Top" Height="28" Width="131" Click="dodaj_button_Click"/>
+        <Button x:Name="izmeni_button" Content="Izmeni" HorizontalAlignment="Left" Margin="457,98,0,0" VerticalAlignment="Top" Height="28" Width="131" Click="izmeni_button_Click"/>
+        <Button x:Name="izbrisi_button" Content="Izbrisi" HorizontalAlignment="Left" Margin="457,314,0,0" VerticalAlignment="Top" Height="28" Width="131" Click="izbrisi_button_Click"/>
+        <Menu Margin="0,0,-65,412">
+            <MenuItem Name="miNekeOpcije" Header="Neke opcije"></MenuItem>
+        </Menu>
+
+        <DataGrid Name="dgProfesori" CanUserAddRows="False" HorizontalAlignment="Left" Height="306" Margin="34,36,0,0" VerticalAlignment="Top" Width="393" AutoGeneratingColumn="dgProfesori_AutoGeneratingColumn"/>
+        <TextBox Name="txtPretraga" Margin="34,365,164,40" KeyUp="txtPretraga_KeyUp"/>
+    </Grid>
+</Window>
