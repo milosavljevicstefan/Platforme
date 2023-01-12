@@ -1,0 +1,2 @@
+0;Tehnicka;0;Nemacki,Engleski,Spanski
+1;Gimnazija;1;Nemacki,Engleski

@@ -1,0 +1,3 @@
+Stefan;Darkovic;stefan@gmail.com;stefan1123;123121412;MUSKI;STUDENT;True;0
+Mica;Micicic;mica.profesor@gmail.com;djura123;12431515;MUSKI;PROFESOR;True;1
+Marija;Maric;maja.profesor@gmail.com;maja123;125123421;ZENSKI;PROFESOR;True;0

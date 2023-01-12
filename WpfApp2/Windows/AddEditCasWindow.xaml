@@ -1,0 +1,28 @@
+﻿<Window x:Class="WpfApp2.Windows.AddEditCasWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2.Windows"
+        mc:Ignorable="d"
+        Title="AddEditCasWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox x:Name="txtID" HorizontalAlignment="Left" Margin="112,52,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="167" Height="34"/>
+        <TextBox x:Name="txtTrajanje" HorizontalAlignment="Left" Margin="112,209,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="167" Height="38"/>
+        <ListBox x:Name="lbProfesori" SelectedItem="{Binding Path=Profesor}" Margin="112,103,513,232"/>
+        <ListBox x:Name="lbStatusi" SelectedItem="{Binding Path=StatusCasa}" Margin="112,252,513,129"/>
+        <ListBox x:Name="lbStudenti" SelectedItem="{Binding Path=Student}" Margin="112,320,513,10"/>
+        <DatePicker x:Name="dpDatum" HorizontalAlignment="Left" Margin="472,82,0,0" VerticalAlignment="Top" Height="135" Width="219"/>
+        <TextBox x:Name="txtVreme" HorizontalAlignment="Left" Margin="472,252,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="229" Height="32"/>
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="398,352,0,0" VerticalAlignment="Top" Height="27" Width="98" Click="Button_Click_1"/>
+        <Button Content="Sacuvaj" HorizontalAlignment="Left" Margin="625,352,0,0" VerticalAlignment="Top" Height="27" Width="98" Click="Button_Click"/>
+        <Label Content="Id" HorizontalAlignment="Left" Margin="41,60,0,0" VerticalAlignment="Top"/>
+        <Label Content="Profesor" HorizontalAlignment="Left" Margin="41,137,0,0" VerticalAlignment="Top"/>
+        <Label Content="Trajanje" HorizontalAlignment="Left" Margin="41,196,0,0" VerticalAlignment="Top"/>
+        <Label Content="Status casa" HorizontalAlignment="Left" Margin="41,266,0,0" VerticalAlignment="Top"/>
+        <Label Content="Student" HorizontalAlignment="Left" Margin="49,321,0,0" VerticalAlignment="Top"/>
+        <Label Content="Datum" HorizontalAlignment="Left" Margin="400,124,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vreme (HH:mm)" HorizontalAlignment="Left" Margin="360,258,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
