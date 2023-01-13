@@ -67,5 +67,12 @@ namespace WpfApp2.Windows
             Profesor p = (Profesor)dgProfesori.SelectedItem;
             Data.Instance.ObrisiProfesora(p);
         }
+
+        private void miVratiNaPocetnu_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow();
+            this.Hide();
+            homeWindow.Show();
+        }
     }
 }

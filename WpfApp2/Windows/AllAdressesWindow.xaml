@@ -11,6 +11,7 @@
             <MenuItem Name="miDodajAdresu" Header="Dodaj adresu" Click="miDodajAdresu_Click"/>
             <MenuItem Name="miIzmeniAdresu" Header="Izmeni adresu" Click="miIzmeniAdresu_Click"/>
             <MenuItem Name="miObrisiAdresu" Header="Obrisi adresu" Click="miObrisiAdresu_Click"/>
+            <MenuItem Name="miVratiNaPocetnu" Header="Vrati se na pocetnu stranu" Width="155" Click="miVratiNaPocetnu_Click"></MenuItem>
         </Menu>
         <DataGrid Name="dgAdrese" CanUserAddRows="False" HorizontalAlignment="Left" Height="174" Margin="10,35,0,0" VerticalAlignment="Top" Width="772"/>
     </Grid>

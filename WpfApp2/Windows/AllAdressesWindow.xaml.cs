@@ -62,5 +62,12 @@ namespace WpfApp2.Windows
             Data.Instance.ObrisiAdresu(a.ID);
             Data.Instance.SacuvajEntitet("adrese.txt");
         }
+
+        private void miVratiNaPocetnu_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow();
+            this.Hide();
+            homeWindow.Show();
+        }
     }
 }

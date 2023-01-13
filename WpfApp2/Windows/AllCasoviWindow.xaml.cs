@@ -46,5 +46,12 @@ namespace WpfApp2.Windows
             Cas c = (Cas)dgCasovi.SelectedItem;
             Data.Instance.ObrisiCas(c);
         }
+
+        private void miVratiNaPocetnu_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow();
+            this.Hide();
+            homeWindow.Show();
+        }
     }
 }

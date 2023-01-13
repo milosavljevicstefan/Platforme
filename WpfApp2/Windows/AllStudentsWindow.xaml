@@ -11,6 +11,7 @@
             <MenuItem Name="miDodajStudenta" Header="Dodaj studenta" Click="miDodajStudenta_Click"/>
             <MenuItem Name="miIzmeniStudenta" Header="Izmeni studenta" Click="miIzmeniStudenta_Click"/>
             <MenuItem Name="miObrisiStudenta" Header="Obrisi studenta" Click="miObrisiStudenta_Click"/>
+            <MenuItem Name="miVratiNaPocetnu" Header="Vrati se na pocetnu stranu" Width="155" Click="miVratiNaPocetnu_Click"></MenuItem>
         </Menu>
         <DataGrid Name="dgStudenti" CanUserAddRows="False" HorizontalAlignment="Left" Height="174" Margin="10,35,0,0" VerticalAlignment="Top" Width="772"/>
     </Grid>

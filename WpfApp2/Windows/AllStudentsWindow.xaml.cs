@@ -45,5 +45,12 @@ namespace WpfApp2.Windows
             Student s = (Student)dgStudenti.SelectedItem;
             Data.Instance.ObrisiStudenta(s);
         }
+
+        private void miVratiNaPocetnu_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow();
+            this.Hide();
+            homeWindow.Show();
+        }
     }
 }

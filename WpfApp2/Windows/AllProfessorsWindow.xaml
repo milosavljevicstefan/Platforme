@@ -11,6 +11,7 @@
             <MenuItem Name="miDodajProfesora" Header="Dodaj profesora" Click="miDodajProfesora_Click"/>
             <MenuItem Name="miIzmeniProfesora" Header="Izmeni profesora" Click="miIzmeniProfesora_Click"/>
             <MenuItem Name="miObrisiProfesora" Header="Obrisi profesora" Click="miObrisiProfesora_Click"/>
+            <MenuItem Name="miVratiNaPocetnu" Header="Vrati se na pocetnu stranu" Width="155" Click="miVratiNaPocetnu_Click"></MenuItem>
         </Menu>
         <DataGrid Name="dgProfesori" CanUserAddRows="False" HorizontalAlignment="Left" Height="174" Margin="10,35,0,0" VerticalAlignment="Top" Width="772"/>
     </Grid>
