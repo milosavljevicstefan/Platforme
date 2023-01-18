@@ -8,9 +8,9 @@ namespace WpfApp2.Services
 {
     interface IUserService
     {
-        void SaveUsers(string filename);
+        void SaveUsers(Object obj);
 
-        void ReadUsers(string filename);
+        void ReadUsers();
 
         void DeleteUser(string email);
     }

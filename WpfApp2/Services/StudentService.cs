@@ -24,9 +24,9 @@ namespace WpfApp2.Services
             Data.Instance.SacuvajEntitet("studenti.txt");
         }
 
-        void IUserService.ReadUsers(string filename)
+        void IUserService.ReadUsers()
         {
-            Data.Instance.CitanjeEntiteta("casovi.txt");
+            /*Data.Instance.CitanjeEntiteta("casovi.txt");
             Data.Instance.Studenti = new ObservableCollection<Student>();
             using (StreamReader file = new StreamReader(@"../../Resources/" + filename))
             {
@@ -58,18 +58,18 @@ namespace WpfApp2.Services
                 //ovo samo priliko inicijalizacije
                 Data.Instance.NalepiStudenteNaCasove();
                 Data.Instance.NalepiCasoveNaProfesora();
-            }
+            }*/
         }
 
-        void IUserService.SaveUsers(string filename)
+        void IUserService.SaveUsers(Object obj)
         {
-            using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
+           /* using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
             {
                 foreach (Student student in Data.Instance.Studenti)
                 {
                     file.WriteLine(student.StudentZaUpisFAjl());
                 }
-            }
+            }*/
         }
     }
 }

@@ -25,9 +25,9 @@ namespace WpfApp2.Services
 
         }
 
-        public void ReadUsers(string filename)
+        public void ReadUsers()
         {
-            Data.Instance.CitanjeEntiteta("skole.txt");
+            /*Data.Instance.CitanjeEntiteta("skole.txt");
             Data.Instance.Profesori = new ObservableCollection<Profesor>();
             using (StreamReader file = new StreamReader(@"../../Resources/" + filename))
             {
@@ -64,12 +64,12 @@ namespace WpfApp2.Services
                     };
                     Data.Instance.Profesori.Add(profesor);
                 }
-            }
+            }*/
         }
 
-        public void SaveUsers(string filename)
+        public void SaveUsers(Object obj)
         {
-            using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
+            /*using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
             {
                 foreach (Profesor profesor in Data.Instance.Profesori)
                 {
@@ -77,7 +77,7 @@ namespace WpfApp2.Services
                     file.WriteLine(profesor.ProfesorZaUpisUFajl());
                 }
 
-            }
+            }*/
         }
     }
 }

@@ -12,6 +12,7 @@ namespace WpfApp2.Models
     sealed class Data
     {
         private static readonly Data instance = new Data();
+        public static readonly string CONNECTION_STRING = "Data Source=DESKTOP-PLV0TBA;Initial Catalog=skola;Integrated Security=True";
         private IUserService userService;
         private IUserService professorService;
         private IAdresaService adresaService;
@@ -46,9 +47,19 @@ namespace WpfApp2.Models
         public ObservableCollection<Student> Studenti { get; set; }
         public ObservableCollection<Cas> Casovi { get; set; }
 
-        public void SacuvajEntitet(string filename)
+        public void SacuvajEntitet(Object obj)
         {
-            switch (filename)
+            if (obj is RegistrovaniKorisnik)
+            {
+                 userService.SaveUsers(obj);
+            }
+            else if (obj is Profesor)
+            {
+                professorService.SaveUsers(obj);
+            }
+            
+             
+            /*switch (filename)
             {
                 case "korisnici.txt": userService.SaveUsers(filename); break;
 
@@ -63,24 +74,24 @@ namespace WpfApp2.Models
                 case "casovi.txt": casoviService.SacuvajCas(filename); break;
 
                 default: Console.WriteLine("Nije uspelo cuvanje entiteta, nije prosao switch"); break;
-            }
+            }*/
         }
 
         public void CitanjeEntiteta(string filename)
         {
             switch (filename)
             {
-                case "korisnici.txt": userService.ReadUsers(filename); break;
+                case "korisnici.txt": userService.ReadUsers(); break;
 
-                case "profesori.txt": professorService.ReadUsers(filename); break;
+               /* case "profesori.txt": professorService.ReadUsers(); break;
 
                 case "adrese.txt": adresaService.ProcitajAdrese(filename); break;
 
                 case "skole.txt": skolaService.ProcitajSkolu(filename); break;
 
-                case "studenti.txt": studentService.ReadUsers(filename); break;
+                case "studenti.txt": studentService.ReadUsers(); break;
 
-                case "casovi.txt": casoviService.ProcitajCasove(filename); break;
+                case "casovi.txt": casoviService.ProcitajCasove(filename); break;*/
 
                 default: Console.WriteLine("Nije uspelo citanje entiteta, nije prosao switch"); break;
             }

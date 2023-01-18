@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,57 +14,67 @@ namespace WpfApp2.Services
 {
     class UserService : IUserService
     {
-        public void SaveUsers(string filename)
+        public void SaveUsers(Object obj)
         {
-            using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
+            RegistrovaniKorisnik korisnik = obj as RegistrovaniKorisnik;
+
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                foreach (RegistrovaniKorisnik registrovaniKorisnik in Data.Instance.Korisnici)
-                {
-                    file.WriteLine(registrovaniKorisnik.KorisnikZaUpisUFajl());
-                }
+                conn.Open();
+
+                string users = "select * from registrovani_korisnik";
+                DataSet ds = new DataSet();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(users, conn);
+                dataAdapter.Fill(ds, "registrovani_korisnik");
+                DataRow newRow = ds.Tables["registrovani_korisnik"].NewRow();
+                newRow["ime"] = korisnik.Ime;
+                newRow["prezime"] = korisnik.Prezime;
+                newRow["jmbg"] = korisnik.JMBG;
+                newRow["pol"] = korisnik.Pol.ToString();
+                newRow["adresa_id"] = korisnik.Adresa.ID;
+                newRow["email"] = korisnik.Email;
+                newRow["lozinka"] = korisnik.Lozinka;
+                newRow["tip"] = korisnik.TipKorisnika.ToString();
+                newRow["aktivan"] = korisnik.Aktivan;
+
+                ds.Tables["registrovani_korisnik"].Rows.Add(newRow);
+
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+                dataAdapter.Update(ds.Tables["registrovani_korisnik"]);
             }
         }
 
-        public void ReadUsers(string filename)
+        public void ReadUsers()
         {
-
             Data.Instance.Korisnici = new ObservableCollection<RegistrovaniKorisnik>();
-
-            using (StreamReader file = new StreamReader(@"../../Resources/" + filename))
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                string line;
+                conn.Open();
+                DataSet ds = new DataSet();
 
-                while ((line = file.ReadLine()) != null)
+                string selectedUser = @"select * from registrovani_korisnik";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(selectedUser, conn);
+                dataAdapter.Fill(ds, "registrovani_korisnik");
+
+                foreach (DataRow dataRow in ds.Tables["registrovani_korisnik"].Rows)
                 {
-                    string[] korisnikIzFajla = line.Split(';');
-
-                    Enum.TryParse(korisnikIzFajla[5], out EPol pol);
-                    Enum.TryParse(korisnikIzFajla[6], out ETipKorisnika tip);
-                    Boolean.TryParse(korisnikIzFajla[7], out Boolean aktivan);
-                    string idAdrese = korisnikIzFajla[8];
-                    Adresa adresa = Data.Instance.Adrese.ToList().Find(a => idAdrese.Equals(a.ID));
-
-
-                    RegistrovaniKorisnik registrovaniKorisnik = new RegistrovaniKorisnik
+                    Enum.TryParse(dataRow["pol"].ToString(), out EPol statusPol);
+                    Enum.TryParse(dataRow["tip"].ToString(), out ETipKorisnika status);
+                    RegistrovaniKorisnik korisnik = new RegistrovaniKorisnik
                     {
-
-                        Ime = korisnikIzFajla[0],
-                        Prezime = korisnikIzFajla[1],
-                        Email = korisnikIzFajla[2],
-                        Lozinka = korisnikIzFajla[3],
-                        JMBG = korisnikIzFajla[4],
-                        Pol = pol,
-                        TipKorisnika = tip,
-                        Aktivan = aktivan,
-                        Adresa = adresa
+                        Ime = dataRow["ime"].ToString(),
+                        Prezime = dataRow["prezime"].ToString(),
+                        JMBG = dataRow["jmbg"].ToString(),
+                        Pol = statusPol,
+                        Adresa = null,//Data.Instance.Adrese.ToList().Find(x => x.ID == dataRow["adresa_id"].ToString()), ovo vratiti kad se namesti servis
+                        Email = dataRow["email"].ToString(),
+                        Lozinka = dataRow["lozinka"].ToString(),
+                        TipKorisnika = status,
+                        Aktivan = (bool)dataRow["aktivan"]
                     };
-
-
-
-                    Data.Instance.Korisnici.Add(registrovaniKorisnik);
+                    Data.Instance.Korisnici.Add(korisnik);
                 }
             }
-
         }
 
         public void DeleteUser(string email)
@@ -75,6 +87,23 @@ namespace WpfApp2.Services
                 throw new UserNotFoundException($"Ne postoji taj korisnik sa email adresom {email}");
             }
             registrovaniKorisnik.Aktivan = false;
+            this.DeactivateUser(registrovaniKorisnik);
+        }
+
+        private void DeactivateUser(RegistrovaniKorisnik registrovaniKorisnik)
+        {
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
+            {
+                conn.Open();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = @"update registrovani_korisnik
+                                        set Aktivan = @Aktivan
+                                        where Email = @Email";
+                command.Parameters.Add(new SqlParameter("Aktivan", registrovaniKorisnik.Aktivan));
+                command.Parameters.Add(new SqlParameter("Email", registrovaniKorisnik.Email));
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
