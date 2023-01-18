@@ -60,13 +60,14 @@ namespace WpfApp2.Services
                 {
                     Enum.TryParse(dataRow["pol"].ToString(), out EPol statusPol);
                     Enum.TryParse(dataRow["tip"].ToString(), out ETipKorisnika status);
+                    Adresa adresa = Data.Instance.Adrese.ToList().Find(x => x.ID == dataRow["adresa_id"].ToString());
                     RegistrovaniKorisnik korisnik = new RegistrovaniKorisnik
                     {
                         Ime = dataRow["ime"].ToString(),
                         Prezime = dataRow["prezime"].ToString(),
                         JMBG = dataRow["jmbg"].ToString(),
                         Pol = statusPol,
-                        Adresa = null,//Data.Instance.Adrese.ToList().Find(x => x.ID == dataRow["adresa_id"].ToString()), ovo vratiti kad se namesti servis
+                        Adresa = adresa,
                         Email = dataRow["email"].ToString(),
                         Lozinka = dataRow["lozinka"].ToString(),
                         TipKorisnika = status,

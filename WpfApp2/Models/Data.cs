@@ -51,11 +51,15 @@ namespace WpfApp2.Models
         {
             if (obj is RegistrovaniKorisnik)
             {
-                 userService.SaveUsers(obj);
+                userService.SaveUsers(obj);
             }
             else if (obj is Profesor)
             {
                 professorService.SaveUsers(obj);
+            }
+            else if (obj is Adresa)
+            {
+                adresaService.SacuvajAdrese(obj);
             }
             
              
@@ -83,15 +87,15 @@ namespace WpfApp2.Models
             {
                 case "korisnici.txt": userService.ReadUsers(); break;
 
-               /* case "profesori.txt": professorService.ReadUsers(); break;
+                case "profesori.txt": professorService.ReadUsers(); break;
 
-                case "adrese.txt": adresaService.ProcitajAdrese(filename); break;
+                case "adrese.txt": adresaService.ProcitajAdrese(); break;
 
                 case "skole.txt": skolaService.ProcitajSkolu(filename); break;
 
                 case "studenti.txt": studentService.ReadUsers(); break;
 
-                case "casovi.txt": casoviService.ProcitajCasove(filename); break;*/
+                case "casovi.txt": casoviService.ProcitajCasove(filename); break;
 
                 default: Console.WriteLine("Nije uspelo citanje entiteta, nije prosao switch"); break;
             }

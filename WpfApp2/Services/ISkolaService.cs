@@ -8,8 +8,8 @@ namespace WpfApp2.Services
 {
     interface ISkolaService
     {
-        void SacuvajSkolu(string filename);
-        void ProcitajSkolu(string filename);
+        void SacuvajSkolu(Object obj);
+        void ProcitajSkolu();
         void IzbrisiAdresu(int id);
     }
 }

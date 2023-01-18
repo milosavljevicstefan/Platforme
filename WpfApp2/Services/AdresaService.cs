@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp2.Models;
+using System.Windows;
 
 namespace WpfApp2.Services
 {
@@ -19,46 +22,79 @@ namespace WpfApp2.Services
                 throw new ArgumentNullException();
             }
             Data.Instance.Adrese.Remove(adresa);
-            Data.Instance.SacuvajEntitet("adrese.txt");
+            try
+            {
+                const string query = @"DELETE FROM adresa WHERE adresa.Id = @ID;";
+                using (SqlConnection con = new SqlConnection(Data.CONNECTION_STRING))
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = adresa.ID;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Row deleted");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred:\r\n" + ex.Message);
+            }
 
-            
+
         }
 
-        void IAdresaService.ProcitajAdrese(string filename)
+        void IAdresaService.ProcitajAdrese()
         {
             Data.Instance.Adrese = new ObservableCollection<Adresa>();
 
-            using (StreamReader file = new StreamReader(@"../../Resources/" + filename))
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                string line;
+                conn.Open();
+                DataSet ds = new DataSet();
 
-                while ((line = file.ReadLine()) != null)
+                string selectedUser = @"select * from adresa";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(selectedUser, conn);
+                dataAdapter.Fill(ds, "adresa");
+
+                foreach (DataRow dataRow in ds.Tables["adresa"].Rows)
                 {
-                    string[] adresaIzFajla = line.Split(';');
-
-
+                    
                     Adresa adresa = new Adresa
                     {
-                        ID = adresaIzFajla[0],
-                        Ulica = adresaIzFajla[1],
-                        Broj = adresaIzFajla[2],
-                        Grad = adresaIzFajla[3],
-                        Drzava = adresaIzFajla[4]
-                    };
+                        ID = dataRow["id"].ToString(),
+                        Ulica = dataRow["ulica"].ToString(),
+                        Broj = dataRow["broj"].ToString(),
+                        Grad = dataRow["grad"].ToString(),
+                        Drzava = dataRow["drzava"].ToString(),
 
+
+                    };
                     Data.Instance.Adrese.Add(adresa);
                 }
             }
         }
 
-        void IAdresaService.SacuvajAdrese(string filename)
+        void IAdresaService.SacuvajAdrese(Object obj)
         {
-            using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
+            Adresa adresa = obj as Adresa;
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                foreach (Adresa adresa in Data.Instance.Adrese)
-                {
-                    file.WriteLine(adresa.AdresaZaUpisUFajl());
-                }
+                conn.Open();
+
+                string users = "select * from adresa";
+                DataSet ds = new DataSet();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(users, conn);
+                dataAdapter.Fill(ds, "adresa");
+                DataRow newRow = ds.Tables["adresa"].NewRow();
+                newRow["id"] = adresa.ID;
+                newRow["ulica"] = adresa.Ulica;
+                newRow["broj"] = adresa.Broj;
+                newRow["grad"] = adresa.Grad;
+                newRow["Drzava"] = adresa.Drzava;
+
+                ds.Tables["adresa"].Rows.Add(newRow);
+
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+                dataAdapter.Update(ds.Tables["adresa"]);
             }
         }
     }

@@ -31,8 +31,8 @@ namespace WpfApp2
             //inicijalne podatke citam iz fajlova - kada imam kreirane fajlove
             Data.Instance.CitanjeEntiteta("adrese.txt");
             Data.Instance.CitanjeEntiteta("korisnici.txt");
-            Data.Instance.CitanjeEntiteta("profesori.txt");
-            Data.Instance.CitanjeEntiteta("studenti.txt");
+            /*Data.Instance.CitanjeEntiteta("profesori.txt");
+            Data.Instance.CitanjeEntiteta("studenti.txt");*/
             //
         }
 

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp2.Models;
+using System.Windows;
 
 namespace WpfApp2.Services
 {
@@ -19,49 +22,102 @@ namespace WpfApp2.Services
                 throw new ArgumentNullException();
             }
             Data.Instance.Skole.Remove(skola);
+            try
+            {
+                const string query = @"DELETE FROM skola WHERE skola.Id = @ID;";
+                using (SqlConnection con = new SqlConnection(Data.CONNECTION_STRING))
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = skola.ID;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Row deleted");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred:\r\n" + ex.Message);
+            }
         }
 
-        void ISkolaService.ProcitajSkolu(string filename)
+        void ISkolaService.ProcitajSkolu()
         {
             Data.Instance.Skole = new ObservableCollection<Skola>();
-            using (StreamReader file = new StreamReader(@"../../Resources/" + filename))
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                string line;
+                conn.Open();
+                DataSet ds = new DataSet();
 
-                while ((line = file.ReadLine()) != null)
+                string selectedUser = @"use skola
+                                        select * from skola
+                                        left join skola_jezik on skola.id = skola_jezik.skola_id";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(selectedUser, conn);
+                dataAdapter.Fill(ds, "adresa");
+
+                foreach (DataRow dataRow in ds.Tables["adresa"].Rows)
                 {
-                    string[] skolaIzFajla = line.Split(';');
-                    string[] listaJezika = skolaIzFajla[3].Split(',');
-                    List<string> listaJezikaLista = new List<string>();
-                    for (int i = 0; i < listaJezika.Length; i++)
+                    Skola skola = Data.Instance.Skole.ToList().Find(x => x.ID == dataRow["id"].ToString());
+                    Adresa adresa = Data.Instance.Adrese.ToList().Find(x => x.ID == dataRow["adresa_id"].ToString());
+                    if (skola == null)
                     {
-                        listaJezikaLista.Add(listaJezika[i]);
+                        skola = new Skola
+                        {
+                            ID = dataRow["id"].ToString(),
+                            Naziv = dataRow["naziv"].ToString(),
+                            Adresa = adresa
+                        };
+                        skola.ListaJezikaKojeJeMogucePolagati.Add(dataRow["jezik"].ToString());
+                        Data.Instance.Skole.Add(skola);
+                    } 
+                    else
+                    {
+                        skola.ListaJezikaKojeJeMogucePolagati.Add(dataRow["jezik"].ToString());
                     }
-                    Adresa a = Data.Instance.Adrese.ToList().Find(x => x.ID.Equals(skolaIzFajla[2]));
-
-                    Skola skola = new Skola
-                    {
-                        ID = skolaIzFajla[0],
-                        Naziv = skolaIzFajla[1],
-                        Adresa = a,
-                        ListaJezikaKojeJeMogucePolagati = listaJezikaLista
-                    };
-
-                    Data.Instance.Skole.Add(skola);
-
+                    
                 }
             }
 
         }
 
-        void ISkolaService.SacuvajSkolu(string filename)
+        void ISkolaService.SacuvajSkolu(Object obj)
         {
-            using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
+            Skola skola = obj as Skola;
+
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                foreach (Skola skola in Data.Instance.Skole)
+                conn.Open();
+
+                string skolaString = "select * from skola";
+                DataSet ds = new DataSet();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(skolaString, conn);
+                dataAdapter.Fill(ds, "skola");
+                DataRow newRow = ds.Tables["skola"].NewRow();
+                newRow["id"] = skola.ID;
+                newRow["naziv"] = skola.Naziv;
+                newRow["adresa_id"] = skola.Adresa.ID;
+                ds.Tables["skola"].Rows.Add(newRow);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+                dataAdapter.Update(ds.Tables["skola"]);
+
+
+
+                string skolaJezikString = "select * from skola_jezik";
+                DataSet dsJezik = new DataSet();
+                SqlDataAdapter dataAdapterJezik = new SqlDataAdapter(skolaJezikString, conn);
+                dataAdapterJezik.Fill(dsJezik, "skola_jezik");
+               
+                foreach(String jezik in skola.ListaJezikaKojeJeMogucePolagati)
                 {
-                    file.WriteLine(skola.SkolaZaUpisUFajl());
+                    DataRow newRoww = dsJezik.Tables["skola_jezik"].NewRow();
+                    newRoww["skola_id"] = skola.ID;
+                    newRoww["jezik"] = jezik;
+                    dsJezik.Tables["skola_jezik"].Rows.Add(newRow);
                 }
+                SqlCommandBuilder commandBuilderr = new SqlCommandBuilder(dataAdapterJezik);
+                dataAdapterJezik.Update(dsJezik.Tables["skola_jezik"]);
+
+
+
             }
         }
     }

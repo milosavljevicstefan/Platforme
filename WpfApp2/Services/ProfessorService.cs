@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,66 +20,98 @@ namespace WpfApp2.Services
             {
                 throw new ArgumentNullException();
             }
-            Data.Instance.Korisnici.Remove(Data.Instance.Korisnici.ToList().Find(x => x.Email.Equals(profesor.Korisnik.Email)));
-            Data.Instance.Profesori.Remove(profesor);
-            Data.Instance.SacuvajEntitet("korisnici.txt");
-            Data.Instance.SacuvajEntitet("profesori.txt");
+            Data.Instance.ObrisiKorisnika(profesor.Korisnik.Email);
 
         }
 
         public void ReadUsers()
         {
-            /*Data.Instance.CitanjeEntiteta("skole.txt");
             Data.Instance.Profesori = new ObservableCollection<Profesor>();
-            using (StreamReader file = new StreamReader(@"../../Resources/" + filename))
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                string line;
+                conn.Open();
+                DataSet ds = new DataSet();
 
-                while ((line = file.ReadLine()) != null)
+                string selectedUser = @"use skola
+                                        select * from skola
+                                        left join skola_jezik on skola.id = skola_jezik.skola_id";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(selectedUser, conn);
+                dataAdapter.Fill(ds, "profesor");
+
+                foreach (DataRow dataRow in ds.Tables["profesor"].Rows)
                 {
-                    string[] profesorIzFajla = line.Split(';');
-
-                    RegistrovaniKorisnik registrovaniKorisnik = Data.Instance.Korisnici.ToList().Find(korisnik => korisnik.Email.Equals(profesorIzFajla[0]));
-                    Skola skola = Data.Instance.Skole.ToList().Find(s => s.ID == profesorIzFajla[1]);
-                    string[] nizJezika = profesorIzFajla[2].Split(',');
-                    List<string> lista = new List<string>();
-                    foreach (string s in nizJezika)
+                    Profesor profesor = Data.Instance.Profesori.ToList().Find(x => x.Korisnik.Email == dataRow["profesor_email"].ToString());
+                    Skola skola = Data.Instance.Skole.ToList().Find(x => x.ID == dataRow["id"].ToString());
+                    RegistrovaniKorisnik korisnik = Data.Instance.Korisnici.ToList().Find(x => x.Email == dataRow["korisnik_email"].ToString());
+                    if (profesor == null)
                     {
-                        lista.Add(s);
+                        profesor = new Profesor
+                        {
+                            Korisnik = korisnik,
+                            Skola = skola
+                        };
+                        profesor.ListaJezikaKojeProfesorPredaje.Add(dataRow["jezik"].ToString());
+                        Data.Instance.Profesori.Add(profesor);
                     }
-                    string[] nizCasova = profesorIzFajla[3].Split(',');
-                     ///List<Cas> listaCasova = new List<Cas>();
-                     // foreach (string s in nizCasova)
-                    // {
-                    //     Cas cas = new Cas();
-                    //    cas.ID = s;
-                    //    listaCasova.Add(cas);
-                    // }
-
-
-                    Profesor profesor = new Profesor
+                    else
                     {
-                        Korisnik = registrovaniKorisnik,
-                        Skola = skola,
-                        ListaJezikaKojeProfesorPredaje = lista,
-                        ListaCasovaKojeProfesorPredaje = new List<Cas>()
-                    };
-                    Data.Instance.Profesori.Add(profesor);
+                        profesor.ListaJezikaKojeProfesorPredaje.Add(dataRow["jezik"].ToString());
+                    }
+                    
                 }
-            }*/
+            }
         }
 
         public void SaveUsers(Object obj)
         {
-            /*using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
-            {
-                foreach (Profesor profesor in Data.Instance.Profesori)
-                {
-                    
-                    file.WriteLine(profesor.ProfesorZaUpisUFajl());
-                }
+            Profesor profesor = obj as Profesor;
 
-            }*/
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
+            {
+                conn.Open();
+
+                string users = "select * from profesor";
+                DataSet ds = new DataSet();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(users, conn);
+                dataAdapter.Fill(ds, "profesor");
+                DataRow newRow = ds.Tables["profesor"].NewRow();
+                newRow["korisnik_email"] = profesor.Korisnik.Email;
+                newRow["skola_id"] = profesor.Skola.ID;
+                ds.Tables["profesor"].Rows.Add(newRow);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+                dataAdapter.Update(ds.Tables["profesor"]);
+
+                //profesor_jezik
+                string jezikProfesorString = "select * from profesor_jezik";
+                DataSet ds2 = new DataSet();
+                SqlDataAdapter dataAdapterr = new SqlDataAdapter(jezikProfesorString, conn);
+                dataAdapterr.Fill(ds2, "profesor_jezik");
+                foreach (String jezik in profesor.ListaJezikaKojeProfesorPredaje)
+                {
+                    DataRow row = ds2.Tables["profesor_jezik"].NewRow();
+                    row["profesor_email"] = profesor.Korisnik.Email;
+                    row["jezik"] = jezik.ToUpper();
+                    ds2.Tables["profesor_jezik"].Rows.Add(row);
+                }
+                SqlCommandBuilder commandBuilderr = new SqlCommandBuilder(dataAdapterr);
+                dataAdapterr.Update(ds2.Tables["profesor_jezik"]);
+
+                //profesor_cas
+                string casProfesorString = "select * from profesor_cas";
+                DataSet ds3 = new DataSet();
+                SqlDataAdapter dataAdapterrr = new SqlDataAdapter(casProfesorString, conn);
+                dataAdapterr.Fill(ds3, "profesor_cas");
+                foreach (Cas cas in profesor.ListaCasovaKojeProfesorPredaje)
+                {
+                    DataRow row = ds3.Tables["profesor_cas"].NewRow();
+                    row["profesor_email"] = profesor.Korisnik.Email;
+                    row["cas_id"] = cas.ID;
+                    ds3.Tables["profesor_cas"].Rows.Add(row);
+                }
+                SqlCommandBuilder commandBuilderrr = new SqlCommandBuilder(dataAdapterrr);
+                dataAdapterrr.Update(ds3.Tables["profesor_cas"]);
+            }
+            Data.Instance.SacuvajEntitet(profesor.Korisnik);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace WpfApp2.Services
 {
     interface IAdresaService
     {
-        void SacuvajAdrese(string filename);
+        void SacuvajAdrese(Object obj);
 
-        void ProcitajAdrese(string filename);
+        void ProcitajAdrese();
 
         void IzbrisiAdresu(string id);
     }
