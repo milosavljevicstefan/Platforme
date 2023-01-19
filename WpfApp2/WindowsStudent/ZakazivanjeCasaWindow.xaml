@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfApp2.WindowsStudent.ZakazivanjeCasaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2.WindowsStudent"
+        mc:Ignorable="d"
+        Title="ZakazivanjeCasaWindow" Height="450" Width="800">
+    <Grid>
+        <ListBox x:Name="lbCasovi" SelectionMode="Extended" Margin="262,82,163,88"/>
+
+        <Label Content="Lista slobodnih casova" HorizontalAlignment="Left" Margin="119,217,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="sacuvajButton" Content="Sacuvaj" HorizontalAlignment="Left" Margin="293,364,0,0" VerticalAlignment="Top" Height="34" Width="100" Click="sacuvajButton_Click"/>
+        <Button x:Name="odustaniButton" Content="odustaniButton" HorizontalAlignment="Left" Margin="544,364,0,0" VerticalAlignment="Top" Height="34" Width="100" Click="odustaniButton_Click"/>
+
+    </Grid>
+</Window>

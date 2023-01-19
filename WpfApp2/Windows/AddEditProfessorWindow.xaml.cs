@@ -149,7 +149,7 @@ namespace WpfApp2.Windows
                 }
                 p.ListaCasovaKojeProfesorPredaje = listaCasova;
                 p.ListaJezikaKojeProfesorPredaje = listaJezika;
-                Data.Instance.SacuvajEntitet(p);
+                Data.Instance.UpdateEntitet(p);
 
             }
             this.Close();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -175,6 +176,19 @@ namespace WpfApp2.Models
         {
             int.TryParse(iD, out int id);
             skolaService.IzbrisiAdresu(id);
+        }
+
+        internal ObservableCollection<Cas> DajSlobodneCasove()
+        {
+            ObservableCollection<Cas> slobodniCasovi = new ObservableCollection<Cas>();
+            foreach(Cas c in Data.Instance.Casovi)
+            {
+                if (c.StatusCasa.Equals(EStatusCasa.SLOBODAN))
+                {
+                    slobodniCasovi.Add(c);
+                }
+            }
+            return slobodniCasovi;
         }
     }
 }

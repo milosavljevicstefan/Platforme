@@ -7,11 +7,10 @@
         mc:Ignorable="d"
         Title="main" Height="450" Width="800">
     <Grid>
-        <Menu Margin="0,0,0,396">
-            <MenuItem Name="miSveSkole" Header="Pogledaj sve skole"/>
-            <MenuItem Name="miSviProfesori" Header="Pogledaj sve profesore" />
-            <MenuItem Name="miprostorIzmedju" Header="                                    " />
+        <Menu Margin="0,0,0,395">
             <MenuItem Name="miLogin" Header="Login" Click="miLogin_Click"/>
         </Menu>
+        <DataGrid x:Name="dgSkole" CanUserAddRows="False" HorizontalAlignment="Left" Height="346" Margin="10,47,0,0" VerticalAlignment="Top" Width="366"/>
+        <DataGrid x:Name="dgProfesori" CanUserAddRows="False" HorizontalAlignment="Left" Height="346" Margin="424,0,0,0" VerticalAlignment="Center" Width="366"/>
     </Grid>
 </Window>

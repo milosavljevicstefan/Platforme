@@ -86,6 +86,15 @@
     <Compile Include="WindowsOstalo\registracija.xaml.cs">
       <DependentUpon>registracija.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowsStudent\IzmeniPodatkeStudentWindow.xaml.cs">
+      <DependentUpon>IzmeniPodatkeStudentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsStudent\StudentWindowMain.xaml.cs">
+      <DependentUpon>StudentWindowMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsStudent\ZakazivanjeCasaWindow.xaml.cs">
+      <DependentUpon>ZakazivanjeCasaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddEditAdressesWindow.xaml.cs">
       <DependentUpon>AddEditAdressesWindow.xaml</DependentUpon>
     </Compile>
@@ -136,6 +145,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowsOstalo\registracija.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsStudent\IzmeniPodatkeStudentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsStudent\StudentWindowMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsStudent\ZakazivanjeCasaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

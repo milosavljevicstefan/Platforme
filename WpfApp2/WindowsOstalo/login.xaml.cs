@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp2.Models;
+using WpfApp2.WindowsStudent;
 
 namespace WpfApp2.WindowsOstalo
 {
@@ -35,8 +36,8 @@ namespace WpfApp2.WindowsOstalo
                 string rola = ulogovan.TipKorisnika.ToString();
                 switch (rola)
                 {
-                    case "ADMINISTRATOR":HomeWindow home = new HomeWindow();home.Show();this.Close();break;
-                    case "STUDENT":;break;
+                    case "ADMINISTRATOR":HomeWindow home = new HomeWindow();home.Show();this.Close(); this.Close(); break;
+                    case "STUDENT": StudentWindowMain studentHome = new StudentWindowMain(ulogovan);studentHome.Show(); this.Close(); break;
                     case "PROFESOR":;break;
                     default:
                         Console.WriteLine("Nije uspelo citanje entiteta, nije prosao switch rola");break;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace WpfApp2.WindowsOstalo
     {
         public main()
         {
+            ObservableCollection<RegistrovaniKorisnik> profesoriDTO = new ObservableCollection<RegistrovaniKorisnik>();
+
             InitializeComponent();
             Data.Instance.CitanjeEntiteta("adrese.txt");
             Data.Instance.CitanjeEntiteta("skole.txt");
@@ -32,6 +35,21 @@ namespace WpfApp2.WindowsOstalo
             Data.Instance.NalepiCasoveNaProfesore();
             Data.Instance.NalepiCasoveNaStudente();
             Console.Write("lele");
+            dgSkole.ItemsSource = Data.Instance.Skole;
+            foreach(Profesor p in Data.Instance.Profesori)
+            {
+                string profesor = p.Korisnik.Ime + " " + p.Korisnik.Prezime + " radi u skoli: " + p.Skola.Naziv;
+                profesoriDTO.Add(p.Korisnik);
+            }
+            dgProfesori.ItemsSource = profesoriDTO;
+
+            //dgProfesori.Columns[2].Visibility = Visibility.Hidden;
+
+            //dgProfesori.Columns[3].Visibility = Visibility.Hidden;
+            //dgProfesori.Columns[4].Visibility = Visibility.Hidden;
+            //dgProfesori.Columns[5].Visibility = Visibility.Hidden;
+
+
         }
 
         private void miLogin_Click(object sender, RoutedEventArgs e)

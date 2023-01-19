@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         Title="HomeWindow" Height="450" Width="800">
     <Grid>
-        <Label Name="lblWelcome" Content="Welcome!"/>
+        <Label Name="lblWelcome"/>
         <Button Name="btnStart" Content="Profesori" Height="100" Width="200" Click="btnStart_Click" Margin="72,39,528,295"/>
         <Button x:Name="btnAdrese" Content="Adrese" Height="100" Width="200" Click="btnAdrese_Click" Margin="300,39,300,295"/>
         <Button x:Name="btnCasovi" Content="Casovi" Height="100" Width="200" Click="btnCasovi_Click" Margin="172,162,428,172"/>
         <Button x:Name="btnStudenti" Content="Studenti" Height="100" Width="200" Click="btnStudenti_Click" Margin="537,39,63,295"/>
         <Button x:Name="btnRegisterProfesor" Content="Registruj profesora" Height="100" Width="200" Click="btnRegisterProfesor_Click" Margin="300,286,300,48"/>
         <Button x:Name="btnSkole" Content="Skole&#xD;&#xA;" Height="100" Width="200" Click="btnSkole_Click" Margin="421,157,179,177"/>
+        <Button x:Name="btnOdjaviSe" Content="Odjavi se" Margin="621,364,70,48" Click="btnOdjaviSe_Click"/>
     </Grid>
 </Window>

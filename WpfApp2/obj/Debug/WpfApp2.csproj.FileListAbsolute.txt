@@ -110,3 +110,9 @@ C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AllSko
 C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AllSkoleWindow.baml
 C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AddEditSkoleWindow.g.cs
 C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AddEditSkoleWindow.baml
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsStudent\StudentWindowMain.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsStudent\ZakazivanjeCasaWindow.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsStudent\StudentWindowMain.baml
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsStudent\ZakazivanjeCasaWindow.baml
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsStudent\IzmeniPodatkeStudentWindow.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsStudent\IzmeniPodatkeStudentWindow.baml

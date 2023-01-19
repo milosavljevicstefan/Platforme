@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp2.Models;
 using WpfApp2.Windows;
+using WpfApp2.WindowsOstalo;
 
 namespace WpfApp2
 {
@@ -70,6 +71,13 @@ namespace WpfApp2
             AllSkoleWindow mainWindow = new AllSkoleWindow();
             this.Hide();
             mainWindow.Show();
+        }
+
+        private void btnOdjaviSe_Click(object sender, RoutedEventArgs e)
+        {
+            main mai = new main();
+            mai.Show();
+            this.Close();
         }
     }
 }

@@ -118,7 +118,7 @@ namespace WpfApp2.Windows
                 c.StatusCasa = statusCasa;
                 c.Student = Data.Instance.Studenti.ToList().Find(x => x.Korisnik.Email.Equals(emailStudenta));
 
-                Data.Instance.SacuvajEntitet("casovi.txt");
+                Data.Instance.UpdateEntitet(c);
             }
             this.Close();
         }
