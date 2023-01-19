@@ -38,11 +38,11 @@ namespace WpfApp2.Windows
             lbSkole.ItemsSource = Data.Instance.Skole;
             
             List<string> jezici = new List<string>();
-            jezici.Add("Engleski");
-            jezici.Add("Spanski");
-            jezici.Add("Nemacki");
-            jezici.Add("Makedonski");
-            jezici.Add("Srpski");
+            jezici.Add("Engleski".ToUpper());
+            jezici.Add("Spanski".ToUpper());
+            jezici.Add("Nemacki".ToUpper());
+            jezici.Add("Makedonski".ToUpper());
+            jezici.Add("Srpski".ToUpper());
             
             lbJezici.ItemsSource = jezici;
             lbCasovi.ItemsSource = Data.Instance.Casovi;

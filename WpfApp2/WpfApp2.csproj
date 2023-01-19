@@ -77,6 +77,15 @@
     <Compile Include="Services\SkolaService.cs" />
     <Compile Include="Services\StudentService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="WindowsOstalo\login.xaml.cs">
+      <DependentUpon>login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsOstalo\main.xaml.cs">
+      <DependentUpon>main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsOstalo\registracija.xaml.cs">
+      <DependentUpon>registracija.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddEditAdressesWindow.xaml.cs">
       <DependentUpon>AddEditAdressesWindow.xaml</DependentUpon>
     </Compile>
@@ -85,6 +94,9 @@
     </Compile>
     <Compile Include="Windows\AddEditProfessorWindow.xaml.cs">
       <DependentUpon>AddEditProfessorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddEditSkoleWindow.xaml.cs">
+      <DependentUpon>AddEditSkoleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AddEditStudentWindow.xaml.cs">
       <DependentUpon>AddEditStudentWindow.xaml</DependentUpon>
@@ -97,6 +109,9 @@
     </Compile>
     <Compile Include="Windows\AllProfessorsWindow.xaml.cs">
       <DependentUpon>AllProfessorsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AllSkoleWindow.xaml.cs">
+      <DependentUpon>AllSkoleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AllStudentsWindow.xaml.cs">
       <DependentUpon>AllStudentsWindow.xaml</DependentUpon>
@@ -112,6 +127,18 @@
     <Compile Include="HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="WindowsOstalo\login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsOstalo\main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowsOstalo\registracija.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AddEditAdressesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AddEditProfessorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddEditSkoleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AllProfessorsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AllSkoleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

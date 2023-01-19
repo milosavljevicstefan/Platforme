@@ -163,5 +163,18 @@ namespace WpfApp2.Models
                 skolaService.IzmeniSkolu(obj);
             }
         }
+
+        internal RegistrovaniKorisnik Login(string jmbg, string lozinka)
+        {
+            RegistrovaniKorisnik korisnik = Data.Instance.Korisnici.ToList().Find(x => x.JMBG.Equals(jmbg) && x.Lozinka.Equals(lozinka));
+            return korisnik;
+
+        }
+
+        internal void ObrisiSkolu(string iD)
+        {
+            int.TryParse(iD, out int id);
+            skolaService.IzbrisiAdresu(id);
+        }
     }
 }

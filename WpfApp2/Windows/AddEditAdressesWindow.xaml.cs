@@ -71,7 +71,7 @@ namespace WpfApp2.Windows
                 a.Broj = txtBroj.Text;
                 a.Grad = txtGrad.Text;
                 a.Drzava = txtGrad.Text;
-                Data.Instance.SacuvajEntitet("adrese.txt");
+                Data.Instance.UpdateEntitet(a);
             }
             this.Close();
 

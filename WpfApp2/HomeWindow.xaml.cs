@@ -29,15 +29,7 @@ namespace WpfApp2
             //Data.Instance.Initialize();
 
             //inicijalne podatke citam iz fajlova - kada imam kreirane fajlove
-            Data.Instance.CitanjeEntiteta("adrese.txt");
-            Data.Instance.CitanjeEntiteta("skole.txt");
-            Data.Instance.CitanjeEntiteta("korisnici.txt");
-            Data.Instance.CitanjeEntiteta("profesori.txt");
-            Data.Instance.CitanjeEntiteta("studenti.txt");
-            Data.Instance.CitanjeEntiteta("casovi.txt");
-            Data.Instance.NalepiCasoveNaProfesore();
-            Data.Instance.NalepiCasoveNaStudente();
-            Console.Write("lele");
+            
             //
         }
 
@@ -64,6 +56,18 @@ namespace WpfApp2
         private void btnStudenti_Click(object sender, RoutedEventArgs e)
         {
             AllStudentsWindow mainWindow = new AllStudentsWindow();
+            this.Hide();
+            mainWindow.Show();
+        }
+
+        private void btnRegisterProfesor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSkole_Click(object sender, RoutedEventArgs e)
+        {
+            AllSkoleWindow mainWindow = new AllSkoleWindow();
             this.Hide();
             mainWindow.Show();
         }

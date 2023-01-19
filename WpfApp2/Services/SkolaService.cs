@@ -37,7 +37,7 @@ namespace WpfApp2.Services
 
         void ISkolaService.IzbrisiAdresu(int id)
         {
-            Skola skola = Data.Instance.Skole.ToList().Find(s => s.ID.Equals(id));
+            Skola skola = Data.Instance.Skole.ToList().Find(s => s.ID.Equals(id.ToString()));
             if (skola == null)
             {
                 throw new ArgumentNullException();
@@ -124,19 +124,20 @@ namespace WpfApp2.Services
 
 
                 string skolaJezikString = "select * from skola_jezik";
-                DataSet dsJezik = new DataSet();
-                SqlDataAdapter dataAdapterJezik = new SqlDataAdapter(skolaJezikString, conn);
-                dataAdapterJezik.Fill(dsJezik, "skola_jezik");
-               
-                foreach(String jezik in skola.ListaJezikaKojeJeMogucePolagati)
+                
+                foreach (string jezik in skola.ListaJezikaKojeJeMogucePolagati)
                 {
+                    DataSet dsJezik = new DataSet();
+                    SqlDataAdapter dataAdapterJezik = new SqlDataAdapter(skolaJezikString, conn);
+                    dataAdapterJezik.Fill(dsJezik, "skola_jezik");
                     DataRow newRoww = dsJezik.Tables["skola_jezik"].NewRow();
                     newRoww["skola_id"] = skola.ID;
                     newRoww["jezik"] = jezik;
-                    dsJezik.Tables["skola_jezik"].Rows.Add(newRow);
+                    dsJezik.Tables["skola_jezik"].Rows.Add(newRoww);
+                    SqlCommandBuilder commandBuilderr = new SqlCommandBuilder(dataAdapterJezik);
+                    dataAdapterJezik.Update(dsJezik.Tables["skola_jezik"]);
                 }
-                SqlCommandBuilder commandBuilderr = new SqlCommandBuilder(dataAdapterJezik);
-                dataAdapterJezik.Update(dsJezik.Tables["skola_jezik"]);
+                
 
 
 

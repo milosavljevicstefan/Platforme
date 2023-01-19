@@ -21,7 +21,7 @@ namespace WpfApp2.Services
             {
                 conn.Open();
                 SqlCommand command = conn.CreateCommand();
-                command.CommandText = "UPDATE cas SET id = @id, ulica = @ulica, broj = @broj, grad = @grad, drzava = @drzava Where id = @id";
+                command.CommandText = "UPDATE adresa SET id = @id, ulica = @ulica, broj = @broj, grad = @grad, drzava = @drzava Where id = @id";
 
                 int.TryParse(adr.ID, out int id);
                 int.TryParse(adr.Broj, out int broj);

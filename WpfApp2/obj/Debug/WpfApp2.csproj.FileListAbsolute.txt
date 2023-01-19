@@ -100,3 +100,13 @@ C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WpfApp2.csproj
 C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WpfApp2.csproj.CoreCompileInputs.cache
 C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WpfApp2.exe
 C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WpfApp2.pdb
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsOstalo\login.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsOstalo\main.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsOstalo\login.baml
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsOstalo\main.baml
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsOstalo\registracija.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\WindowsOstalo\registracija.baml
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AllSkoleWindow.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AllSkoleWindow.baml
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AddEditSkoleWindow.g.cs
+C:\Users\Milosavljevic\Desktop\gitWeb\Platforme\WpfApp2\obj\Debug\Windows\AddEditSkoleWindow.baml

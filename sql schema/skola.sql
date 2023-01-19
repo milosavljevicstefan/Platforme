@@ -138,3 +138,5 @@ insert into student_cas values('6@mail.com', 3);
 insert into student_cas values('5@mail.com', 4);
 insert into student_cas values('6@mail.com', 5);
 
+use skola
+update registrovani_korisnik set tip = 'ADMINISTRATOR' where lozinka = '1'
