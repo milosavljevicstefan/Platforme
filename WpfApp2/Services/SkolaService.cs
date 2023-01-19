@@ -14,6 +14,27 @@ namespace WpfApp2.Services
 {
     class SkolaService : ISkolaService
     {
+        public void IzmeniSkolu(object obj)
+        {
+            Skola sk = obj as Skola;
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
+            {
+                conn.Open();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = "UPDATE skola SET id = @id, naziv = @naziv, adresa_id = @adresa_id Where id = @id";
+
+                int.TryParse(sk.ID, out int id);
+                int.TryParse(sk.Adresa.ID, out int adresa_id);
+
+
+                command.Parameters.Add(new SqlParameter("id", id));
+                command.Parameters.Add(new SqlParameter("naziv", sk.Naziv));
+                command.Parameters.Add(new SqlParameter("adresa_id", adresa_id));
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         void ISkolaService.IzbrisiAdresu(int id)
         {
             Skola skola = Data.Instance.Skole.ToList().Find(s => s.ID.Equals(id));

@@ -115,7 +115,7 @@ insert into cas values(1, '2@mail.com', '2023-1-1', '01:00', 30, 'SLOBODAN', '5@
 insert into cas values(2, '2@mail.com', '2023-2-2', '02:00', 30, 'SLOBODAN', '5@mail.com');
 insert into cas values(3, '3@mail.com', '2023-3-3', '03:00', 30, 'SLOBODAN', '6@mail.com');
 insert into cas values(4, '2@mail.com', '2023-4-4', '04:00', 30, 'SLOBODAN', '5@mail.com');
-insert into cas values(5, '3@mail.com', '2023-5-5', '05:00', 30, 'SLOBODAN', '5@mail.com');
+insert into cas values(5, '3@mail.com', '2023-5-5', '05:00', 30, 'SLOBODAN', '6@mail.com');
 
 insert into profesor_jezik values('2@mail.com', 'SRPSKI');
 insert into profesor_jezik values('3@mail.com', 'SRPSKI');

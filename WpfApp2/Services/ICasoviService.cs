@@ -11,5 +11,6 @@ namespace WpfApp2.Services
         void SacuvajCas(Object obj);
         void ProcitajCasove();
         void IzbrisiCas(string id);
+        void IzmeniCas(Object obj);
     }
 }

@@ -13,6 +13,29 @@ namespace WpfApp2.Services
 {
     class StudentService : IUserService
     {
+        public void UpdateUser(object obj)
+        {
+            Student student = obj as Student;
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
+            {
+                conn.Open();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = "delete student_cas where student_email = @email";
+                command.Parameters.Add(new SqlParameter("email", student.Korisnik.Email));
+                command.ExecuteNonQuery();
+                foreach (Cas c in student.ListaCasova)
+                {
+                    int.TryParse(c.ID, out int casId); 
+                    SqlCommand commandd = conn.CreateCommand();
+                    commandd.CommandText += " insert into student_cas values (@email, @cas_id)";
+                    commandd.Parameters.Add(new SqlParameter("cas_id", casId));
+                    commandd.Parameters.Add(new SqlParameter("email", student.Korisnik.Email));
+                    commandd.ExecuteNonQuery();
+
+                };
+            }
+        }
+
         void IUserService.DeleteUser(string email)
         {
             Student student = Data.Instance.Studenti.ToList().Find((s) => s.Korisnik.Email == email);

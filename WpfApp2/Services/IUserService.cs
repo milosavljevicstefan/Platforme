@@ -13,5 +13,7 @@ namespace WpfApp2.Services
         void ReadUsers();
 
         void DeleteUser(string email);
+
+        void UpdateUser(object obj);
     }
 }

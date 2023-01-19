@@ -15,6 +15,31 @@ namespace WpfApp2.Services
 {
     class CasoviService : ICasoviService
     {
+        public void IzmeniCas(object obj)
+        {
+            Cas cas = obj as Cas;
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
+            {
+                conn.Open();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = "UPDATE cas SET id = @id, profesor_email = @profesor_email, datum_odrzavanja = @datum_odrzavanja, vreme_pocetka = @vreme_pocetka, trajanje = @trajanje, status_casa = @status_casa, student_email = @student_email Where id = @id";
+
+                int.TryParse(cas.ID, out int id);
+
+                string[] split = cas.DatumIVremeOdrzavanja.ToString().Split(' ');
+                command.Parameters.Add(new SqlParameter("id", id));
+                command.Parameters.Add(new SqlParameter("profesor_email", cas.Profesor.Korisnik.Email));
+                command.Parameters.Add(new SqlParameter("datum_odrzavanja", split[0]));
+                command.Parameters.Add(new SqlParameter("vreme_pocetka", split[1]));
+                command.Parameters.Add(new SqlParameter("trajanje", cas.Trajanje));
+                command.Parameters.Add(new SqlParameter("status_casa", cas.StatusCasa.ToString()));
+                command.Parameters.Add(new SqlParameter("student_email", cas.Student.Korisnik.Email));
+                
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         void ICasoviService.IzbrisiCas(string id)
         {
             Cas cas = Data.Instance.Casovi.ToList().Find(c => c.ID.Equals(id));

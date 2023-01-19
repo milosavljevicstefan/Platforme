@@ -25,7 +25,6 @@ namespace WpfApp2.Windows
         {
             InitializeComponent();
 
-            dgProfesori.ItemsSource = null;
             ObservableCollection<Profesor> profe = new ObservableCollection<Profesor>();
             foreach(Profesor p in Data.Instance.Profesori)
             {

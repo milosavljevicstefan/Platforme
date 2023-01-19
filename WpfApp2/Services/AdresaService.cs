@@ -14,6 +14,28 @@ namespace WpfApp2.Services
 {
     internal class AdresaService : IAdresaService
     {
+        public void IzmeniAdresu(object obj)
+        {
+            Adresa adr = obj as Adresa;
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
+            {
+                conn.Open();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = "UPDATE cas SET id = @id, ulica = @ulica, broj = @broj, grad = @grad, drzava = @drzava Where id = @id";
+
+                int.TryParse(adr.ID, out int id);
+                int.TryParse(adr.Broj, out int broj);
+
+                command.Parameters.Add(new SqlParameter("id", id));
+                command.Parameters.Add(new SqlParameter("ulica", adr.Ulica));
+                command.Parameters.Add(new SqlParameter("broj", broj));
+                command.Parameters.Add(new SqlParameter("grad", adr.Grad));
+                command.Parameters.Add(new SqlParameter("drzava", adr.Drzava));
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         void IAdresaService.IzbrisiAdresu(string id)
         {
             Adresa adresa = Data.Instance.Adrese.ToList().Find(a => a.ID.Equals(id));

@@ -115,5 +115,10 @@ left join profesor_jezik pj on p.korisnik_email = pj.profesor_email";
                 dataAdapterrr.Update(ds3.Tables["profesor_cas"]);
             }
         }
+
+        public void UpdateUser(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

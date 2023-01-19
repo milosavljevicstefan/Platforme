@@ -13,5 +13,6 @@ namespace WpfApp2.Services
         void ProcitajAdrese();
 
         void IzbrisiAdresu(string id);
+        void IzmeniAdresu(Object obj);
     }
 }

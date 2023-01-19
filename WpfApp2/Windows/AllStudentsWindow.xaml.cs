@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,15 @@ namespace WpfApp2.Windows
         public AllStudentsWindow()
         {
             InitializeComponent();
-            dgStudenti.ItemsSource = Data.Instance.Studenti;
+            ObservableCollection<Student> studenti = new ObservableCollection<Student>();
+            foreach (Student s in Data.Instance.Studenti)
+            {
+                if (s.Korisnik.Aktivan)
+                {
+                    studenti.Add(s);
+                }
+            }
+            dgStudenti.ItemsSource = studenti;
         }
 
         private void miDodajStudenta_Click(object sender, RoutedEventArgs e)

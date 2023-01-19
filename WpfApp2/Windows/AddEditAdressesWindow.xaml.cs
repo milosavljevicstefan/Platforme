@@ -63,7 +63,7 @@ namespace WpfApp2.Windows
                 a.Grad = txtGrad.Text;
                 a.Drzava = txtDrzava.Text;
                 Data.Instance.Adrese.Add(a);
-                Data.Instance.SacuvajEntitet("adrese.txt");
+                Data.Instance.SacuvajEntitet(a);
             } else
             {
                 Adresa a = Data.Instance.Adrese.ToList().Find(x => x.ID.Equals(txtId.Text));

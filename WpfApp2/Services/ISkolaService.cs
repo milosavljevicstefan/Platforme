@@ -11,5 +11,6 @@ namespace WpfApp2.Services
         void SacuvajSkolu(Object obj);
         void ProcitajSkolu();
         void IzbrisiAdresu(int id);
+        void IzmeniSkolu(Object obj);
     }
 }

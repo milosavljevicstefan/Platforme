@@ -89,8 +89,9 @@ namespace WpfApp2.Windows
                 }
                 novi.ListaCasova = listaCasova;
                 Data.Instance.Korisnici.Add(korisnik);
-
                 Data.Instance.Studenti.Add(novi);
+                Data.Instance.SacuvajEntitet(korisnik);
+                Data.Instance.SacuvajEntitet(novi);
 
             } else
             {
@@ -110,10 +111,9 @@ namespace WpfApp2.Windows
                     listaCasova.Add(c);
                 }
                 p.ListaCasova = listaCasova;
-
+                Data.Instance.UpdateEntitet(p.Korisnik);
+                Data.Instance.UpdateEntitet(p);
             }
-            Data.Instance.SacuvajEntitet("korisnici.txt");
-            Data.Instance.SacuvajEntitet("studenti.txt");
             this.Close();
         }
     }

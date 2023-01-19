@@ -61,24 +61,19 @@ namespace WpfApp2.Models
             {
                 adresaService.SacuvajAdrese(obj);
             }
-            
-             
-            /*switch (filename)
+            else if (obj is Cas)
             {
-                case "korisnici.txt": userService.SaveUsers(filename); break;
+                casoviService.SacuvajCas(obj);
+            }
+            else if (obj is Student)
+            {
+                studentService.SaveUsers(obj);
+            }
+            else if (obj is Skola)
+            {
+                skolaService.SacuvajSkolu(obj);
+            }
 
-                case "profesori.txt": professorService.SaveUsers(filename); break;
-
-                case "adrese.txt": adresaService.SacuvajAdrese(filename); break;
-
-                case "skole.txt": skolaService.SacuvajSkolu(filename); break;
-
-                case "studenti.txt": studentService.SaveUsers(filename); break;
-
-                case "casovi.txt": casoviService.SacuvajCas(filename); break;
-
-                default: Console.WriteLine("Nije uspelo cuvanje entiteta, nije prosao switch"); break;
-            }*/
         }
 
         public void CitanjeEntiteta(string filename)
@@ -138,6 +133,34 @@ namespace WpfApp2.Models
             foreach (Cas c in Data.instance.Casovi)
             {
                 Data.Instance.Studenti.ToList().Find(x => x.Korisnik.Email.Equals(c.Student.Korisnik.Email)).ListaCasova.Add(c);
+            }
+        }
+
+        internal void UpdateEntitet(Object obj)
+        {
+            if (obj is RegistrovaniKorisnik)
+            {
+                userService.UpdateUser(obj);
+            }
+            else if (obj is Profesor)
+            {
+                professorService.UpdateUser(obj);
+            }
+            else if (obj is Adresa)
+            {
+                adresaService.IzmeniAdresu(obj);
+            }
+            else if (obj is Cas)
+            {
+                casoviService.IzmeniCas(obj);
+            }
+            else if (obj is Student)
+            {
+                studentService.UpdateUser(obj);
+            }
+            else if (obj is Skola)
+            {
+                skolaService.IzmeniSkolu(obj);
             }
         }
     }

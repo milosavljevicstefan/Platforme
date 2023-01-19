@@ -87,7 +87,7 @@ namespace WpfApp2.Windows
                     Student = Data.Instance.Studenti.ToList().Find(x => x.Korisnik.Email.Equals(emailStudenta))
                 };
                 Data.Instance.Casovi.Add(novi);
-                Data.Instance.SacuvajEntitet("casovi.txt");
+                Data.Instance.SacuvajEntitet(novi);
             } 
             else
             {

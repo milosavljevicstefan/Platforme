@@ -107,5 +107,30 @@ namespace WpfApp2.Services
                 command.ExecuteNonQuery();
             }
         }
+
+        public void UpdateUser(object obj)
+        {
+            RegistrovaniKorisnik korisnik = obj as RegistrovaniKorisnik;
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
+            {
+                conn.Open();
+                SqlCommand command = conn.CreateCommand();
+                command.CommandText = "UPDATE registrovani_korisnik SET ime = @ime, prezime = @prezime, jmbg = @jmbg, pol = @pol, adresa_id = @adresa_id, email = @email, lozinka = @lozinka, tip = @tip, aktivan = @aktivan Where jmbg = @jmbg";
+
+                int.TryParse(korisnik.JMBG, out int jmbg);
+                
+                command.Parameters.Add(new SqlParameter("ime", korisnik.Ime));
+                command.Parameters.Add(new SqlParameter("prezime", korisnik.Prezime));
+                command.Parameters.Add(new SqlParameter("jmbg", jmbg));
+                command.Parameters.Add(new SqlParameter("pol", korisnik.Pol.ToString()));
+                command.Parameters.Add(new SqlParameter("adresa_id", korisnik.Adresa.ID));
+                command.Parameters.Add(new SqlParameter("email", korisnik.Email));
+                command.Parameters.Add(new SqlParameter("lozinka", korisnik.Lozinka));
+                command.Parameters.Add(new SqlParameter("tip", korisnik.TipKorisnika.ToString()));
+                command.Parameters.Add(new SqlParameter("aktivan", korisnik.Aktivan));
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
