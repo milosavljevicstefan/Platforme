@@ -32,23 +32,25 @@ namespace WpfApp2.Services
                 conn.Open();
                 DataSet ds = new DataSet();
 
-                string selectedUser = @"use skola
-                                        select * from skola
-                                        left join skola_jezik on skola.id = skola_jezik.skola_id";
+                string selectedUser = @"select * from profesor p
+left join profesor_jezik pj on p.korisnik_email = pj.profesor_email";
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(selectedUser, conn);
                 dataAdapter.Fill(ds, "profesor");
 
                 foreach (DataRow dataRow in ds.Tables["profesor"].Rows)
                 {
                     Profesor profesor = Data.Instance.Profesori.ToList().Find(x => x.Korisnik.Email == dataRow["profesor_email"].ToString());
-                    Skola skola = Data.Instance.Skole.ToList().Find(x => x.ID == dataRow["id"].ToString());
+                    Skola skola = Data.Instance.Skole.ToList().Find(x => x.ID == dataRow["skola_id"].ToString());
                     RegistrovaniKorisnik korisnik = Data.Instance.Korisnici.ToList().Find(x => x.Email == dataRow["korisnik_email"].ToString());
                     if (profesor == null)
                     {
                         profesor = new Profesor
                         {
                             Korisnik = korisnik,
-                            Skola = skola
+                            Skola = skola,
+                            ListaCasovaKojeProfesorPredaje = new List<Cas>(),
+                            ListaJezikaKojeProfesorPredaje = new List<string>()
+                            
                         };
                         profesor.ListaJezikaKojeProfesorPredaje.Add(dataRow["jezik"].ToString());
                         Data.Instance.Profesori.Add(profesor);
@@ -100,18 +102,18 @@ namespace WpfApp2.Services
                 string casProfesorString = "select * from profesor_cas";
                 DataSet ds3 = new DataSet();
                 SqlDataAdapter dataAdapterrr = new SqlDataAdapter(casProfesorString, conn);
-                dataAdapterr.Fill(ds3, "profesor_cas");
+                dataAdapterrr.Fill(ds3, "profesor_cas");
                 foreach (Cas cas in profesor.ListaCasovaKojeProfesorPredaje)
                 {
                     DataRow row = ds3.Tables["profesor_cas"].NewRow();
                     row["profesor_email"] = profesor.Korisnik.Email;
-                    row["cas_id"] = cas.ID;
+                    long.TryParse(cas.ID, out long id);
+                    row["cas_id"] = id;
                     ds3.Tables["profesor_cas"].Rows.Add(row);
                 }
                 SqlCommandBuilder commandBuilderrr = new SqlCommandBuilder(dataAdapterrr);
                 dataAdapterrr.Update(ds3.Tables["profesor_cas"]);
             }
-            Data.Instance.SacuvajEntitet(profesor.Korisnik);
         }
     }
 }

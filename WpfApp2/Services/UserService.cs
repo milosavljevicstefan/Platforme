@@ -29,7 +29,8 @@ namespace WpfApp2.Services
                 DataRow newRow = ds.Tables["registrovani_korisnik"].NewRow();
                 newRow["ime"] = korisnik.Ime;
                 newRow["prezime"] = korisnik.Prezime;
-                newRow["jmbg"] = korisnik.JMBG;
+                int.TryParse(korisnik.JMBG, out int jmbg);
+                newRow["jmbg"] = jmbg;
                 newRow["pol"] = korisnik.Pol.ToString();
                 newRow["adresa_id"] = korisnik.Adresa.ID;
                 newRow["email"] = korisnik.Email;

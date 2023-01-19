@@ -8,8 +8,8 @@ namespace WpfApp2.Services
 {
     public interface ICasoviService
     {
-        void SacuvajCas(string filename);
-        void ProcitajCasove(string filename);
+        void SacuvajCas(Object obj);
+        void ProcitajCasove();
         void IzbrisiCas(string id);
     }
 }

@@ -118,10 +118,10 @@ namespace WpfApp2.Windows
 
                 novi.ListaCasovaKojeProfesorPredaje = listaCasova;
                 novi.ListaJezikaKojeProfesorPredaje = listaJezika;
-                Data.Instance.Korisnici.Add(korisnik);
-                
+                Data.Instance.Korisnici.Add(novi.Korisnik);
+                Data.Instance.SacuvajEntitet(novi.Korisnik);
                 Data.Instance.Profesori.Add(novi);
-                
+                Data.Instance.SacuvajEntitet(novi);
 
 
             } else
@@ -149,10 +149,9 @@ namespace WpfApp2.Windows
                 }
                 p.ListaCasovaKojeProfesorPredaje = listaCasova;
                 p.ListaJezikaKojeProfesorPredaje = listaJezika;
-                
+                Data.Instance.SacuvajEntitet(p);
+
             }
-            Data.Instance.SacuvajEntitet("korisnici.txt");
-            Data.Instance.SacuvajEntitet("profesori.txt");
             this.Close();
         }
     }

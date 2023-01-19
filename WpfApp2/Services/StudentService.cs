@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,58 +20,68 @@ namespace WpfApp2.Services
             {
                 throw new ArgumentNullException();
             }
-            Data.Instance.Korisnici.Remove(student.Korisnik);
-            Data.Instance.Studenti.Remove(student);
-            Data.Instance.SacuvajEntitet("korisnici.txt");
-            Data.Instance.SacuvajEntitet("studenti.txt");
+            Data.Instance.ObrisiKorisnika(student.Korisnik.Email);
         }
 
         void IUserService.ReadUsers()
         {
-            /*Data.Instance.CitanjeEntiteta("casovi.txt");
             Data.Instance.Studenti = new ObservableCollection<Student>();
-            using (StreamReader file = new StreamReader(@"../../Resources/" + filename))
+
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                string line;
+                conn.Open();
+                DataSet ds = new DataSet();
 
-                while ((line = file.ReadLine()) != null)
+                string selectedUser = @"select * from student";
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(selectedUser, conn);
+                dataAdapter.Fill(ds, "student");
+
+                foreach (DataRow dataRow in ds.Tables["student"].Rows)
                 {
-                    string[] studentIzFajla = line.Split(';');
-
-                    RegistrovaniKorisnik registrovaniKorisnik = Data.Instance.Korisnici.ToList().Find(korisnik => korisnik.Email.Equals(studentIzFajla[0]));
-                    string[] nizCasova = studentIzFajla[1].Split(',');
-
-                    List<Cas> listaCasova = new List<Cas>();
-                    for (int i = 0; i < nizCasova.Length; i++)
-                    {
-                        Cas cas = Data.Instance.Casovi.ToList().Find(c => c.ID.Equals(nizCasova[i]));
-                        listaCasova.Add(cas);
-
-                    }
-
+                    RegistrovaniKorisnik korisnik = Data.Instance.Korisnici.ToList().Find((s) => s.Email == dataRow["korisnik_email"].ToString());
                     Student student = new Student
                     {
-                        Korisnik = registrovaniKorisnik,
-                        ListaCasova = listaCasova
+                        Korisnik = korisnik,
+                        ListaCasova = new List<Cas>()
                     };
-
                     Data.Instance.Studenti.Add(student);
                 }
-                //ovo samo priliko inicijalizacije
-                Data.Instance.NalepiStudenteNaCasove();
-                Data.Instance.NalepiCasoveNaProfesora();
-            }*/
+            }
         }
 
         void IUserService.SaveUsers(Object obj)
         {
-           /* using (StreamWriter file = new StreamWriter(@"../../Resources/" + filename))
+            Student student = obj as Student;
+            using (SqlConnection conn = new SqlConnection(Data.CONNECTION_STRING))
             {
-                foreach (Student student in Data.Instance.Studenti)
+                conn.Open();
+
+                string studentString = "select * from student";
+                DataSet ds = new DataSet();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(studentString, conn);
+                dataAdapter.Fill(ds, "student");
+                DataRow newRow = ds.Tables["student"].NewRow();
+                newRow["korisnik_email"] = student.Korisnik.Email;
+                ds.Tables["student"].Rows.Add(newRow);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+                dataAdapter.Update(ds.Tables["student"]);
+
+                string studentCasString = "select * from student_cas";
+                DataSet dsCas = new DataSet();
+                SqlDataAdapter dataAdapterJezik = new SqlDataAdapter(studentCasString, conn);
+                dataAdapterJezik.Fill(dsCas, "student_cas");
+
+                foreach (Cas cas in student.ListaCasova)
                 {
-                    file.WriteLine(student.StudentZaUpisFAjl());
+                    DataRow newRoww = dsCas.Tables["student_cas"].NewRow();
+                    newRoww["student_email"] = student.Korisnik.Email;
+                    newRoww["cas_id"] = cas.ID;
+                    dsCas.Tables["student_cas"].Rows.Add(newRow);
                 }
-            }*/
+                SqlCommandBuilder commandBuilderr = new SqlCommandBuilder(dataAdapterJezik);
+                dataAdapterJezik.Update(dsCas.Tables["student_cas"]);
+
+            }
         }
     }
 }

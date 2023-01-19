@@ -91,11 +91,11 @@ namespace WpfApp2.Models
 
                 case "adrese.txt": adresaService.ProcitajAdrese(); break;
 
-                case "skole.txt": skolaService.ProcitajSkolu(filename); break;
+                case "skole.txt": skolaService.ProcitajSkolu(); break;
 
                 case "studenti.txt": studentService.ReadUsers(); break;
 
-                case "casovi.txt": casoviService.ProcitajCasove(filename); break;
+                case "casovi.txt": casoviService.ProcitajCasove(); break;
 
                 default: Console.WriteLine("Nije uspelo citanje entiteta, nije prosao switch"); break;
             }
@@ -124,24 +124,20 @@ namespace WpfApp2.Models
         {
             adresaService.IzbrisiAdresu(id);
         }
-        
 
-        internal void NalepiStudenteNaCasove()
+        internal void NalepiCasoveNaProfesore()
         {
-            List<Student> students = new List<Student>();
-            List<Cas> casovi = new List<Cas>();
-            foreach (Cas cas in casovi)
+            foreach (Cas c in Data.instance.Casovi)
             {
-                Student st = Data.instance.Studenti.ToList().Find(s => s.Korisnik.Email.Equals(cas.Student.Korisnik.Email));
-                cas.Student = st;
+                Data.Instance.Profesori.ToList().Find(x => x.Korisnik.Email.Equals(c.Profesor.Korisnik.Email)).ListaCasovaKojeProfesorPredaje.Add(c);
             }
         }
 
-        internal void NalepiCasoveNaProfesora()
+        internal void NalepiCasoveNaStudente()
         {
-            foreach(Cas c in Data.instance.Casovi)
+            foreach (Cas c in Data.instance.Casovi)
             {
-                Data.Instance.Profesori.ToList().Find(x => x.Korisnik.Email.Equals(c.Profesor.Korisnik.Email)).ListaCasovaKojeProfesorPredaje.Add(c);
+                Data.Instance.Studenti.ToList().Find(x => x.Korisnik.Email.Equals(c.Student.Korisnik.Email)).ListaCasova.Add(c);
             }
         }
     }

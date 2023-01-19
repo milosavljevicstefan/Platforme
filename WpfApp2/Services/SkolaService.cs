@@ -64,7 +64,8 @@ namespace WpfApp2.Services
                         {
                             ID = dataRow["id"].ToString(),
                             Naziv = dataRow["naziv"].ToString(),
-                            Adresa = adresa
+                            Adresa = adresa,
+                            ListaJezikaKojeJeMogucePolagati = new List<string>()
                         };
                         skola.ListaJezikaKojeJeMogucePolagati.Add(dataRow["jezik"].ToString());
                         Data.Instance.Skole.Add(skola);

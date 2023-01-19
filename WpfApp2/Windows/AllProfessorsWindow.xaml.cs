@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,15 @@ namespace WpfApp2.Windows
             InitializeComponent();
 
             dgProfesori.ItemsSource = null;
-            dgProfesori.ItemsSource = Data.Instance.Profesori;
+            ObservableCollection<Profesor> profe = new ObservableCollection<Profesor>();
+            foreach(Profesor p in Data.Instance.Profesori)
+            {
+                if (p.Korisnik.Aktivan)
+                {
+                    profe.Add(p);
+                }
+            }
+            dgProfesori.ItemsSource = profe;
         }
 
         private void miDodajProfesora_Click(object sender, RoutedEventArgs e)
